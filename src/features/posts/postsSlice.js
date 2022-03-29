@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { id } from 'date-fns/locale';
 
 const initialState = [
     {id: 1, title: 'Post 1', content: 'Body 1'},
@@ -12,11 +13,19 @@ export const postsSlice = createSlice({
         postAdded: (state, action) => {
             state.push(action.payload);
         },
+        postUpdated: (state, action) => {
+            const {id, title, content} = action.payload;
+            const existingPost = state.find(post => post.id === action.payload.id);
+            if(existingPost){
+                existingPost.title = title;
+                existingPost.content = content;
+            }
+        }
     },
 });
 
 // action creaters
 
-export const {postAdded} = postsSlice.actions;
+export const {postAdded, postUpdated} = postsSlice.actions;
 
 export default postsSlice.reducer;
