@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 // action
-import { postAdded } from "./postsSlice";
+import { postAdded } from "../store/postsSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 const AddPostForm = () => {
 
@@ -13,7 +14,12 @@ const AddPostForm = () => {
 
     const savePost = () => {
       if(title && content) {
-        dispatch(postAdded(title,content));
+        dispatch(postAdded({
+          id: nanoid(),
+          title,
+          content,
+        }));
+        
         setTitle('');
         setContent('');
       }

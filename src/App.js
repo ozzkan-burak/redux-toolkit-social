@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom'
 
 import { Navbar } from './app/Navbar'
-import PostList from './features/posts/PostList'
+import PostList from './posts/PostList'
+import AddPostForm from './posts/AddPostForm'
 
 function App() {
   return (
@@ -20,11 +21,12 @@ function App() {
             path="/"
             render={() => (
               <>
+                <AddPostForm />
                 <PostList />
               </>
             )}
           />
-          <Redirect to="/" />
+          {/* <Redirect to="/" /> */}
         </Switch>
       </div>
     </Router>

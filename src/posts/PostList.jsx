@@ -1,8 +1,11 @@
 import { useSelector } from 'react-redux';
 import {Link} from "react-router-dom";
+import AddPostForm from './AddPostForm';
 
 const PostList = () => {
   const posts = useSelector((state) => state.posts)
+
+  console.log(posts);
 
   const renderedPosts = posts.map((post) => {
     return (
