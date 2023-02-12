@@ -1,14 +1,17 @@
-import React from 'react'
+import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from 'react-router-dom'
+} from 'react-router-dom';
 
-import { Navbar } from './app/Navbar'
-import PostList from './posts/PostList'
-import AddPostForm from './posts/AddPostForm'
+// components
+import { Navbar } from './app/Navbar';
+import AddPostForm from './features/posts/AddPostForm';
+import PostList from './features/posts/PostList';
+import SinglePostPage from './features/posts/SinglePostPage';
+import EditPostForm from './features/posts/EditPostForm';
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
             )}
           />
           {/* <Redirect to="/" /> */}
+          <Route exact path="/posts/:id" component={SinglePostPage} />
+          <Route exact path="/edit-post/:id" component={EditPostForm} />
+          <Redirect to="/" />
         </Switch>
       </div>
     </Router>
