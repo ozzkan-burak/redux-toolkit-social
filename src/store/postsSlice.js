@@ -15,17 +15,17 @@ export const postsSlice = createSlice({
             reducer: (state, action) => {
                 state.push(action.payload);
             },
-            prepare: (title, content) => {
-                return {
-                    payload: {
-                        id: nanoid(),
-                        title,
-                        content,
-                        meta: 'Buraya ek bilgi girebiliriz.',
-                        error: false,
-                    },
-                };
-            }
+            // prepare: (title, content) => {
+            //     return {
+            //         payload: {
+            //             id: nanoid(),
+            //             title,
+            //             content,
+            //             meta: 'Buraya ek bilgi girebiliriz.',
+            //             error: false,
+            //         },
+            //     };
+            // }
         },
         postUpdated: (state, action) => {
             const {id, title, content} = action.payload;

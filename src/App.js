@@ -29,6 +29,7 @@ function App() {
               </>
             )}
           />
+          {/* <Redirect to="/" /> */}
           <Route exact path="/posts/:id" component={SinglePostPage} />
           <Route exact path="/edit-post/:id" component={EditPostForm} />
           <Redirect to="/" />
