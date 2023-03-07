@@ -7,7 +7,6 @@ const SinglePostPage = () => {
 
   let {id} = useParams();
 
-  console.log(id)
 
   const post = useSelector((state)=>
     state.posts.find(post => post.id === Number(id))
