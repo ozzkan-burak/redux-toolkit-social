@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // action
 import { postAdded } from "./postsSlice";
@@ -8,8 +8,15 @@ const AddPostForm = () => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [userId, setUserId] = useState('');
 
     const dispatch = useDispatch();
+
+    const users = useSelector((state)=> state.users)
+
+    const userOptions = users?.map((user)=>(
+      <option key={``}>{user.name}</option>
+    ))
 
     const savePost = () => {
       if(title && content) {
