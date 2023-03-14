@@ -1,29 +1,50 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // action
 import { postAdded } from "./postsSlice";
 
 const AddPostForm = () => {
+  const [options, setOptions] = useState();
+  const [canSave, setCanSave] = useState(false);
 
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [userId, setUserId] = useState('');
+    const titleRef = useRef();
+    const contentRef = useRef();
+    const userIdRef = useRef();
+
 
     const dispatch = useDispatch();
 
     const users = useSelector((state)=> state.users)
 
-    const userOptions = users?.map((user)=>(
-      <option key={``}>{user.name}</option>
-    ))
+    useEffect(() => {
+      const userOptions = users?.map((user, i)=>(
+        <option key={`userOption-${user.title}-${i.toString()}`}>{user.title}</option>
+      ))
+      setOptions(userOptions);
+    }, [users])
+  
+    let title = titleRef?.current?.value;
+    let content = contentRef?.current?.value;
+    let user = userIdRef?.current?.value;
+
+    
+
+    useEffect(()=> {
+      const canSave = Boolean(title) && Boolean(content) && Boolean(user);
+      setCanSave(canSave);
+      
+    }, [title, content, user])
+
+    console.log(canSave);
 
     const savePost = () => {
-      if(title && content) {
+      if (title && content && user) {
         dispatch(postAdded(title,content));
-        setTitle('');
-        setContent('');
+        title = "";
+        content = "";
       }
+  
     }
 
 
@@ -37,15 +58,21 @@ const AddPostForm = () => {
               type="text"
               id="postTitle"
               name="postTitle"
-              value={title}
-              onChange={(e)=> setTitle(prevState => prevState = e.target.value)}
+              ref={titleRef}
             />
+            <label htmlFor="postAuthor">Author:</label>
+            <select 
+              id="postAuthor"
+              ref={userIdRef}
+              >
+                <option>Please select Author</option>
+                {options}
+            </select>
             <label htmlFor="postContent">Content:</label>
             <textarea
               id="postContent"
               name="postContent"
-              value={content}
-              onChange={(e)=> setContent(prevState => prevState = e.target.value)}
+              ref={contentRef}
             />
             <button type="button" onClick={savePost}>Save Post</button>
           </form>
